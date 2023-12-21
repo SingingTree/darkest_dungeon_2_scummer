@@ -145,7 +145,11 @@ impl ScummedProfile {
 
         let now = chrono::Utc::now();
         let mut dest_path = scumm_dir.to_path_buf();
+        // Make a dir for the given time we're scumming.
         dest_path.push(now.format("%Y-%m-%dT%H-%M-%S.%f").to_string());
+        // Scum into an explicit "profiles" dir to make it easier to copy over existing "profiles"
+        // dirs.
+        dest_path.push("profiles");
 
         copy_dir_recursively(profile_dir, &dest_path)?;
 
